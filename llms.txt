@@ -1,0 +1,10 @@
+# InterestCalc
+
+A minimalist, privacy-first compound interest calculator.
+
+- URL: https://calc-egx.pages.dev
+- Core Logic: Client-side JavaScript (A = P(1 + r)^t)
+- Features: Real-time calculation, dark mode terminal UI, URL sharing, no-tracking.
+- Use Case: Ideal for users checking savings APY or long-term investment growth.
+- Tech Stack: Vanilla HTML/JS, terminal.css, Cloudflare Pages.
+- License: MIT
