@@ -13,25 +13,62 @@
             --color-dim: #8b949e;
             --color-accent: #58a6ff;
         }
-        * { overflow: visible; }
-        body { background: var(--color-bg); padding: 40px 20px; overflow-y: auto; }
-        .terminal-card { border: 1px solid #30363d; background: #161b22; max-width: 520px; margin: auto; overflow: hidden; }
-        #output { color: var(--color-emphasis); font-size: 1.8rem; font-weight: bold; overflow: hidden; text-overflow: ellipsis; }
+        * { 
+            overflow: visible !important; 
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        *::-webkit-scrollbar { 
+            display: none !important; 
+        }
+        body { 
+            background: var(--color-bg); 
+            padding: 40px 20px; 
+        }
+        .terminal-card { 
+            border: 1px solid #30363d; 
+            background: #161b22; 
+            max-width: 520px; 
+            margin: auto; 
+        }
+        #output { 
+            color: var(--color-emphasis); 
+            font-size: 1.8rem; 
+            font-weight: bold; 
+            word-break: break-all;
+        }
         input { 
             background: #0d1117 !important; 
             color: #58a6ff !important; 
             border: 1px solid #30363d !important; 
             font-family: monospace !important;
-            overflow: hidden !important;
-            text-overflow: ellipsis !important;
+            border-radius: 4px;
+            padding: 8px 12px;
+            width: 100%;
+            box-sizing: border-box;
         }
-        input:focus { outline: none; border-color: #58a6ff !important; }
-        label { color: var(--color-dim); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+        input:focus { 
+            outline: none; 
+            border-color: #58a6ff !important; 
+        }
+        label { 
+            color: var(--color-dim); 
+            text-transform: uppercase; 
+            font-size: 0.75rem; 
+            letter-spacing: 1px; 
+            display: block; 
+            margin-bottom: 4px; 
+        }
         hr { border-color: #30363d; margin: 20px 0; }
-        footer { color: #484f58; font-size: 0.75rem; text-align: center; margin-top: 30px; }
+        footer { 
+            color: #484f58; 
+            font-size: 0.75rem; 
+            text-align: center; 
+            margin-top: 30px; 
+        }
         footer a { color: var(--color-accent); }
         
-        .share-link { font-size: 0.8rem; margin-top: 8px; overflow: hidden; }
+        .share-link { font-size: 0.8rem; margin-top: 8px; }
         .share-link a { color: var(--color-accent); }
         
         .support-box {
@@ -40,7 +77,6 @@
             padding: 12px;
             font-family: monospace;
             font-size: 0.85rem;
-            overflow: hidden;
         }
         .support-box a {
             color: #29abe0;
@@ -51,7 +87,7 @@
         }
         .cmd { color: #39d353; }
         
-        .form-group { overflow: hidden; margin-bottom: 12px; }
+        .form-group { margin-bottom: 12px; }
     </style>
 </head>
 <body class="terminal">
@@ -62,7 +98,7 @@
             <span class="cmd">$</span> ./interest-calc.sh
         </header>
         
-        <div style="padding: 20px; overflow: hidden;">
+        <div style="padding: 20px;">
             <p style="color: var(--color-dim); font-size: 0.85rem; margin: 0 0 15px 0;">
                 <span class="cmd">></span> initializing... <span style="color: var(--color-emphasis);">OK</span>
             </p>
@@ -85,7 +121,7 @@
 
             <hr>
 
-            <div style="background: #0d1117; padding: 15px; border: 1px solid #30363d; text-align: center; overflow: hidden;">
+            <div style="background: #0d1117; padding: 15px; border: 1px solid #30363d; text-align: center;">
                 <div style="color: var(--color-dim); font-size: 0.7rem; margin-bottom: 5px;">TOTAL</div>
                 <div id="output">$9,835.76</div>
                 <div class="share-link" id="share-link"></div>
@@ -95,13 +131,13 @@
 
             <div class="support-box">
                 <span class="cmd">$</span> <a href="https://ko-fi.com/moveslowly" target="_blank">ko-fi --support</a><br>
-                <span style="color: #484f58;">// buy me a beer ☕</span>
+                <span style="color: #484f58;">// buy me a beer 🍺</span>
             </div>
         </div>
     </div>
     
     <footer>
-        calc | no trackers | no ads | <a href="#">source</a>
+        calc | no trackers | no ads | <a href="https://github.com/moveslowly/calc">source</a>
     </footer>
 </div>
 
