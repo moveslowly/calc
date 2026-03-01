@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$ interest-calc</title>
+    <link rel="stylesheet" href="https://unpkg.com/terminal.css@0.7.4/dist/terminal.min.css" />
+    <style>
+        :root {
+            --color-bg: #0d1117;
+            --color-fg: #c9d1d9;
+            --color-emphasis: #39d353;
+            --color-dim: #8b949e;
+            --color-accent: #58a6ff;
+        }
+        * { overflow: visible; }
+        body { background: var(--color-bg); padding: 40px 20px; overflow-y: auto; }
+        .terminal-card { border: 1px solid #30363d; background: #161b22; max-width: 520px; margin: auto; overflow: hidden; }
+        #output { color: var(--color-emphasis); font-size: 1.8rem; font-weight: bold; overflow: hidden; text-overflow: ellipsis; }
+        input { 
+            background: #0d1117 !important; 
+            color: #58a6ff !important; 
+            border: 1px solid #30363d !important; 
+            font-family: monospace !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+        input:focus { outline: none; border-color: #58a6ff !important; }
+        label { color: var(--color-dim); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+        hr { border-color: #30363d; margin: 20px 0; }
+        footer { color: #484f58; font-size: 0.75rem; text-align: center; margin-top: 30px; }
+        footer a { color: var(--color-accent); }
+        
+        .share-link { font-size: 0.8rem; margin-top: 8px; overflow: hidden; }
+        .share-link a { color: var(--color-accent); }
+        
+        .support-box {
+            background: #1c2128;
+            border: 1px dashed #30363d;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            overflow: hidden;
+        }
+        .support-box a {
+            color: #29abe0;
+            text-decoration: none;
+        }
+        .support-box a:hover {
+            text-decoration: underline;
+        }
+        .cmd { color: #39d353; }
+        
+        .form-group { overflow: hidden; margin-bottom: 12px; }
+    </style>
+</head>
+<body class="terminal">
+
+<div class="container">
+    <div class="terminal-card">
+        <header style="border-bottom: 1px solid #30363d; padding: 12px 16px; font-weight: bold;">
+            <span class="cmd">$</span> ./interest-calc.sh
+        </header>
+        
+        <div style="padding: 20px; overflow: hidden;">
+            <p style="color: var(--color-dim); font-size: 0.85rem; margin: 0 0 15px 0;">
+                <span class="cmd">></span> initializing... <span style="color: var(--color-emphasis);">OK</span>
+            </p>
+            
+            <div class="form-group">
+                <label>PRINCIPAL ($)</label>
+                <input type="number" id="principal" value="5000" oninput="calc()">
+            </div>
+            
+            <div class="grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="form-group">
+                    <label>ANNUAL_RATE (%)</label>
+                    <input type="number" id="rate" value="7" step="0.1" oninput="calc()">
+                </div>
+                <div class="form-group">
+                    <label>YEARS</label>
+                    <input type="number" id="years" value="10" oninput="calc()">
+                </div>
+            </div>
+
+            <hr>
+
+            <div style="background: #0d1117; padding: 15px; border: 1px solid #30363d; text-align: center; overflow: hidden;">
+                <div style="color: var(--color-dim); font-size: 0.7rem; margin-bottom: 5px;">TOTAL</div>
+                <div id="output">$9,835.76</div>
+                <div class="share-link" id="share-link"></div>
+            </div>
+
+            <hr>
+
+            <div class="support-box">
+                <span class="cmd">$</span> <a href="https://ko-fi.com/moveslowly" target="_blank">ko-fi --support</a><br>
+                <span style="color: #484f58;">// buy me a beer ☕</span>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        calc | no trackers | no ads | <a href="#">source</a>
+    </footer>
+</div>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('p')) document.getElementById('principal').value = params.get('p');
+    if (params.has('r')) document.getElementById('rate').value = params.get('r');
+    if (params.has('t')) document.getElementById('years').value = params.get('t');
+
+    function calc() {
+        const P = parseFloat(document.getElementById('principal').value) || 0;
+        const r = (parseFloat(document.getElementById('rate').value) / 100) || 0;
+        const t = parseFloat(document.getElementById('years').value) || 0;
+
+        const A = P * Math.pow((1 + r), t);
+        document.getElementById('output').innerText = 
+            new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(A);
+
+        const p = document.getElementById('principal').value;
+        const r_val = document.getElementById('rate').value;
+        const t_val = document.getElementById('years').value;
+        const url = `${window.location.pathname}?p=${p}&r=${r_val}&t=${t_val}`;
+        window.history.replaceState({}, '', url);
+        
+        document.getElementById('share-link').innerHTML = 
+            `<a href="${window.location.href}">share</a>`;
+    }
+
+    calc();
+</script>
+
+</body>
+</html>
